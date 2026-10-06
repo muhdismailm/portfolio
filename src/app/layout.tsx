@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Great_Vibes } from "next/font/google";
+import Navbar from "@/components/navbar/Navbar";
+import MobileBottomNav from "@/components/navigation/MobileBottomNav";
+import Footer from "@/components/footer/Footer";
+import AmbientBackground from "@/components/three/AmbientBackground";
 import LenisProvider from "@/components/providers/lenis-provider";
 import "./globals.css";
 
@@ -15,20 +19,29 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-signature",
+});
+
 export const metadata: Metadata = {
-  title: "Muhammed Ismail M | Software Engineer",
+  title: "Muhammed Ismail M | Software Engineer — AI & Full Stack",
   description:
-    "Building AI-powered and full-stack applications that solve real-world problems. Portfolio of Muhammed Ismail M — Software Engineer specializing in React, Next.js, TypeScript, Python, and AI/ML.",
+    "Portfolio of Muhammed Ismail M — Software Engineer specializing in building AI-powered web applications, computer vision pipelines, and full-stack solutions with React, Next.js, TypeScript, and Python.",
   keywords: [
     "Muhammed Ismail M",
     "Software Engineer",
     "Full Stack Developer",
-    "AI",
-    "Machine Learning",
-    "React",
-    "Next.js",
-    "TypeScript",
+    "AI Engineer",
+    "Computer Vision",
+    "Next.js Developer",
+    "React Developer",
     "Python",
+    "OpenCV",
+    "MediaPipe",
+    "TypeScript",
   ],
   authors: [{ name: "Muhammed Ismail M" }],
   openGraph: {
@@ -46,14 +59,37 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+import { ThemeProvider } from "@/components/providers/theme-provider";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${greatVibes.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <LenisProvider>{children}</LenisProvider>
+      <body className="min-h-full flex flex-col bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-300 selection:bg-[#FF1018]/30 selection:text-white">
+        <ThemeProvider>
+          <LenisProvider>
+            {/* Subtle Ambient Three.js Particles and Glow */}
+            <AmbientBackground />
+
+            {/* Top Sticky Glassmorphism Navigation */}
+            <Navbar />
+
+            {/* Main Content Area */}
+            <div className="flex-1 relative z-10">{children}</div>
+
+            {/* Persistent Footer */}
+            <Footer />
+
+            {/* Mobile Bottom Navigation Dock (Section 31) */}
+            <MobileBottomNav />
+          </LenisProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

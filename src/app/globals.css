@@ -1,50 +1,74 @@
 @import "tailwindcss";
 
 /* ============================================
-   Design Tokens & Custom Properties
+   Dark Bento-Style Design Tokens
    ============================================ */
 :root {
-  --background: #030712;
-  --card: #0F172A;
-  --surface: #1E293B;
-  --primary: #6366F1;
-  --primary-light: #818CF8;
-  --accent: #06B6D4;
-  --accent-light: #22D3EE;
+  --bg-main: #070707;
+  --card-primary: #111111;
+  --card-secondary: #151515;
+  --card-hover: #191919;
+  --border-color: #242424;
+  --border-hover: #343434;
+
+  --text-primary: #F5F5F5;
+  --text-secondary: #A1A1A1;
+  --text-muted: #6B6B6B;
+
+  --accent-red: #FF1018;
+  --accent-dark-red: #8F0005;
+  --accent-red-glow: rgba(255, 16, 24, 0.20);
   --success: #22C55E;
-  --text: #F8FAFC;
-  --text-muted: #94A3B8;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-light: rgba(255, 255, 255, 0.08);
 
   /* Fonts */
   --font-heading: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-signature: var(--font-signature), "Great Vibes", cursive, sans-serif;
 }
 
-/* ============================================
-   Tailwind Theme Inline
-   ============================================ */
+html.light {
+  --bg-main: #F6F7F9;
+  --card-primary: #FFFFFF;
+  --card-secondary: #F0F2F5;
+  --card-hover: #E7EAEF;
+  --border-color: #E1E4EA;
+  --border-hover: #CCD1DB;
+
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+
+  --accent-red: #E00B13;
+  --accent-dark-red: #9E0007;
+  --accent-red-glow: rgba(224, 11, 19, 0.15);
+  color-scheme: light;
+}
+
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--text);
-  --color-card: var(--card);
-  --color-surface: var(--surface);
-  --color-primary: var(--primary);
-  --color-primary-light: var(--primary-light);
-  --color-accent: var(--accent);
-  --color-accent-light: var(--accent-light);
+  --color-background: var(--bg-main);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--card-primary);
+  --color-card-secondary: var(--card-secondary);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border-color);
+  --color-border-hover: var(--border-hover);
+  
+  --color-primary: var(--accent-red);
+  --color-primary-dark: var(--accent-dark-red);
+  --color-accent: var(--accent-red);
   --color-success: var(--success);
-  --color-text: var(--text);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
-  --color-border: var(--border);
-  --color-border-light: var(--border-light);
+
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
+  --font-signature: var(--font-signature);
 }
 
 /* ============================================
-   Base Styles
+   Base & Reset
    ============================================ */
 * {
   box-sizing: border-box;
@@ -52,17 +76,19 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--background);
+  background-color: var(--bg-main);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--text);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
+  position: relative;
 }
 
 /* ============================================
@@ -70,102 +96,153 @@ body {
    ============================================ */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+/* Uppercase Micro Labels */
+.badge-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 /* ============================================
-   Scrollbar
+   Bento Card Base Styles
+   ============================================ */
+.bento-card {
+  background-color: var(--card-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  border-color: var(--border-hover);
+  background-color: var(--card-hover);
+}
+
+.bento-card-subtle {
+  background-color: var(--card-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-subtle:hover {
+  border-color: var(--border-hover);
+  background-color: var(--card-hover);
+}
+
+/* Strategic Red Accents */
+.red-glow {
+  box-shadow: 0 0 25px rgba(255, 16, 24, 0.18);
+}
+
+.red-glow-sm {
+  box-shadow: 0 0 12px rgba(255, 16, 24, 0.25);
+}
+
+.red-border-hover:hover {
+  border-color: rgba(255, 16, 24, 0.4);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn-red-primary {
+  background-color: var(--accent-red);
+  color: #FFFFFF;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 20px rgba(255, 16, 24, 0.25);
+}
+
+.btn-red-primary:hover {
+  background-color: #FF2E35;
+  box-shadow: 0 0 30px rgba(255, 16, 24, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-red-primary:active {
+  transform: translateY(0);
+}
+
+.btn-dark-secondary {
+  background-color: #151515;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-dark-secondary:hover {
+  background-color: #1c1c1c;
+  border-color: var(--border-hover);
+  color: #FFFFFF;
+}
+
+/* ============================================
+   Custom Scrollbar
    ============================================ */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  background: #242424;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: #343434;
+}
+
+/* Horizontal Gallery Scrollbar */
+.gallery-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #242424 transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: #242424;
+  border-radius: 4px;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-red);
 }
 
 /* ============================================
    Selection & Focus
    ============================================ */
 ::selection {
-  background: rgba(99, 102, 241, 0.25);
-  color: var(--text);
+  background: rgba(255, 16, 24, 0.3);
+  color: #FFFFFF;
 }
 
 *:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--accent-red);
   outline-offset: 2px;
-  border-radius: 6px;
 }
 
 /* ============================================
-   Clean Refined Glassmorphism (Subtle & Restrained)
+   Mobile Safe Area Utility
    ============================================ */
-.glass {
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.glass-nav {
-  background: rgba(3, 7, 18, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.glass-panel {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel:hover {
-  border-color: rgba(99, 102, 241, 0.25);
-  background: rgba(15, 23, 42, 0.6);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  transform: translateY(-2px);
-}
-
-/* ============================================
-   Subtle Restrained Animations
-   ============================================ */
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-}
-
-.animate-float-gentle {
-  animation: float-gentle 7s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float-gentle 8s ease-in-out 2s infinite;
-}
-
-/* ============================================
-   Buttons & Links
-   ============================================ */
-.btn-primary-gradient {
-  background: #6366F1;
-}
-
-.btn-primary-gradient:hover {
-  background: #4F46E5;
+.safe-bottom-padding {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 5rem);
 }
