@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectItem } from "@/data/projects";
-import { X, ExternalLink, Layers, Cpu, CheckCircle2, AlertTriangle, Lightbulb } from "lucide-react";
+import { X, ExternalLink, CheckCircle2 } from "lucide-react";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
   return (
@@ -28,7 +28,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto" data-lenis-prevent>
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -44,7 +44,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl glass-panel p-6 sm:p-8 bg-slate-900/95 border border-white/15 shadow-2xl"
+          data-lenis-prevent
+          className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain rounded-3xl glass-panel p-6 sm:p-8 bg-slate-900/95 border border-white/15 shadow-2xl"
         >
           {/* Close Button */}
           <button
@@ -57,9 +58,15 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Header */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-3xl p-3 rounded-2xl bg-primary/10 border border-primary/20">
-              {project.thumbnail}
-            </span>
+            {project.thumbnail.startsWith("/") || project.thumbnail.includes(".") ? (
+              <div className="w-14 h-14 p-2 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <img src={project.thumbnail} alt={project.title} className="w-full h-full object-contain" />
+              </div>
+            ) : (
+              <span className="text-3xl p-3 rounded-2xl bg-primary/10 border border-primary/20">
+                {project.thumbnail}
+              </span>
+            )}
             <div>
               <span className="text-xs font-semibold text-primary uppercase tracking-wider">
                 {project.category} Project
@@ -91,9 +98,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {project.gallery.map((item, idx) => (
               <div
                 key={idx}
-                className="aspect-video rounded-xl bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 border border-white/10 flex items-center justify-center text-3xl shadow-inner"
+                className="aspect-video rounded-xl bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 border border-white/10 flex items-center justify-center text-3xl shadow-inner overflow-hidden p-2"
               >
-                {item}
+                {item.startsWith("/") || item.includes(".") ? (
+                  <img src={item} alt="" className="w-full h-full object-contain" />
+                ) : (
+                  item
+                )}
               </div>
             ))}
           </div>
@@ -114,43 +125,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </ul>
           </div>
 
-          {/* Technical Deep Dive: Challenges & Solutions & Architecture */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20">
-              <h5 className="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <AlertTriangle size={14} />
-                <span>Technical Challenge</span>
-              </h5>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {project.challenges}
-              </p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
-              <h5 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <Lightbulb size={14} />
-                <span>Engineered Solution</span>
-              </h5>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {project.solutions}
-              </p>
-            </div>
-          </div>
-
-          {/* Architecture Box */}
-          <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/20 mb-8">
-            <h5 className="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <Layers size={14} />
-              <span>System Architecture</span>
-            </h5>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              {project.architecture}
-            </p>
-          </div>
-
           {/* Action Links */}
           <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-white/10">
-            {project.liveUrl && (
+            {Boolean(project.liveUrl) && (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -161,15 +138,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <ExternalLink size={14} />
               </a>
             )}
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/15 text-white text-xs font-semibold hover:bg-white/10 transition-all duration-300"
-            >
-              <span>GitHub Repository</span>
-              <GithubIcon size={14} />
-            </a>
+            {Boolean(project.githubUrl) && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/15 text-white text-xs font-semibold hover:bg-white/10 transition-all duration-300"
+              >
+                <span>GitHub Repository</span>
+                <GithubIcon size={14} />
+              </a>
+            )}
           </div>
         </motion.div>
       </div>

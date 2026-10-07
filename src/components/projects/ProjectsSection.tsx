@@ -79,10 +79,18 @@ export default function ProjectsSection() {
             >
               <div>
                 <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950/80 border border-white/5 mb-5 flex items-center justify-center">
-                  <span className="text-5xl group-hover:scale-105 transition-transform duration-300">
-                    {project.thumbnail}
-                  </span>
-                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-slate-900/90 border border-white/10 text-[10px] font-medium text-slate-300">
+                  {project.thumbnail.startsWith("/") || project.thumbnail.includes(".") ? (
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <span className="text-5xl group-hover:scale-105 transition-transform duration-300">
+                      {project.thumbnail}
+                    </span>
+                  )}
+                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-slate-900/90 border border-white/10 text-[10px] font-medium text-slate-300 z-10">
                     {project.category}
                   </div>
                 </div>
@@ -116,17 +124,19 @@ export default function ProjectsSection() {
                     View Details →
                   </span>
                   <div className="flex items-center gap-2">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
-                      aria-label="GitHub"
-                    >
-                      <GithubIcon size={14} />
-                    </a>
-                    {project.liveUrl && (
+                    {Boolean(project.githubUrl) && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+                        aria-label="GitHub"
+                      >
+                        <GithubIcon size={14} />
+                      </a>
+                    )}
+                    {Boolean(project.liveUrl) && (
                       <a
                         href={project.liveUrl}
                         target="_blank"

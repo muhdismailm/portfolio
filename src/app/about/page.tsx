@@ -20,6 +20,7 @@ import {
 import ExperienceTimeline from "@/components/experience/ExperienceTimeline";
 import RedButton from "@/components/ui/RedButton";
 import BentoGallery from "@/components/gallery/BentoGallery";
+import { TechLogo } from "@/components/ui/TechLogos";
 
 export default function AboutPage() {
   return (
@@ -61,7 +62,7 @@ export default function AboutPage() {
             </div>
 
             <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-4">
-              Building AI-driven web systems with high performance and pragmatic elegance.
+              Building AI-integrated web systems & cross-platform Flutter applications with pragmatic elegance.
             </h3>
 
             <p className="text-xs sm:text-sm text-[#A1A1A1] leading-relaxed mb-4">
@@ -69,7 +70,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-xs sm:text-sm text-[#A1A1A1] leading-relaxed">
-              My core philosophy focuses on clean architecture, sub-second interface responsiveness, and utilizing machine learning models to solve tangible human challenges. Whether it&apos;s real-time gesture tracking for accessibility or automated document engines with transactional billing, I ensure production systems are built to scale.
+              My engineering philosophy combines robust backend architectures with reactive, intuitive user interfaces. Whether it&apos;s real-time computer vision in sign language translation, intelligent automation engines, or offline-first mobile applications, I focus on building reliable, human-centric software that scales.
             </p>
           </div>
 
@@ -156,9 +157,11 @@ export default function AboutPage() {
                   {cat.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="p-2.5 rounded-xl bg-[#151515] border border-[#222222] hover:border-[#FF1018]/40 hover:bg-[#181818] transition-all flex items-center gap-2 group cursor-default"
+                      className="p-2.5 rounded-xl bg-[#151515] border border-[#222222] hover:border-[#FF1018]/40 hover:bg-[#181818] transition-all flex items-center gap-2.5 group cursor-default"
                     >
-                      <span className="text-sm">{skill.icon}</span>
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1c1c1c] border border-[#262626] group-hover:border-[#FF1018]/30 shrink-0 transition-colors">
+                        <TechLogo name={skill.name} className="w-4 h-4 shrink-0" />
+                      </div>
                       <div className="min-w-0">
                         <span className="text-xs font-medium text-white truncate block group-hover:text-[#F5F5F5]">
                           {skill.name}

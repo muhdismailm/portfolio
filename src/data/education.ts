@@ -10,28 +10,28 @@ export interface EducationItem {
 
 export const educationData: EducationItem[] = [
   {
-    id: "btech-cs",
-    degree: "Bachelor of Technology in Computer Science & Engineering",
-    institution: "University Institute of Technology",
+    id: "btech-csd",
+    degree: "Bachelor of Technology in Computer Science and Design",
+    institution: "Government Engineering College, Kozhikode (GECK)",
     period: "2022 - 2026",
-    grade: "Final Year (GPA: 8.8/10)",
-    description: "Specializing in Artificial Intelligence, Software Engineering, Web Technologies, and Data Structures & Algorithms.",
+    grade: "Final Year Student",
+    description: "Focused on Full Stack Web Development, Cross-Platform Mobile Apps, AI/ML integrations, and modern UI/UX engineering principles.",
     highlights: [
-      "Lead Developer in University AI Research Club",
-      "Published project on Real-Time Sign Language Translation",
-      "Consistent Academic Top Ranker",
+      "Mentor at VIBE GECK guiding junior students in tech stacks",
+      "Winner – Flutter + AI Hackathon 2025",
+      "Active participant in IEEE CS and TinkerHub initiatives",
     ],
   },
   {
     id: "higher-secondary",
     degree: "Higher Secondary Education (Computer Science Stream)",
-    institution: "State Board Higher Secondary School",
+    institution: "State Board Higher Secondary",
     period: "2020 - 2022",
-    grade: "96.5% Score",
+    grade: "Distinction",
     description: "Focused on Mathematics, Physics, Chemistry, and Computer Science fundamentals.",
     highlights: [
-      "School Topper in Computer Science",
-      "Winner of Regional Science Exhibition",
+      "Strong foundation in programming & problem solving",
+      "Participated in regional technical and STEM exhibitions",
     ],
   },
 ];
