@@ -27,6 +27,7 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://muhdismailm.dev"),
   title: "Muhammed Ismail M | Software Engineer — AI & Full Stack",
   description:
     "Portfolio of Muhammed Ismail M — Software Engineer specializing in building AI-powered web applications, computer vision pipelines, and full-stack solutions with React, Next.js, TypeScript, and Python.",
@@ -50,12 +51,21 @@ export const metadata: Metadata = {
       "Building AI-powered and full-stack applications that solve real-world problems.",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/ismail.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "Muhammed Ismail M",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Muhammed Ismail M | Software Engineer",
     description:
       "Building AI-powered and full-stack applications that solve real-world problems.",
+    images: ["/ismail.jpg"],
   },
 };
 
@@ -81,7 +91,7 @@ export default function RootLayout({
             <Navbar />
 
             {/* Main Content Area */}
-            <div className="flex-1 relative z-10">{children}</div>
+            <div className="flex-1 relative">{children}</div>
 
             {/* Persistent Footer */}
             <Footer />
