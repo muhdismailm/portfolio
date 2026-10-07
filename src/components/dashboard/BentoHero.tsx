@@ -99,125 +99,47 @@ export default function BentoHero() {
   return (
     <section className="relative pt-6 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       {/* =========================================================
-          SECTION 1: TOP HERO BENTO ROW (Hero, Portrait, 5+ Projects, Ask AI + Exp)
-          ========================================================= */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 mb-4 sm:mb-5">
-        
-        {/* CARD 1: LEFT HERO CARD (col-span-4) - Compact & with typewriter role */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="lg:col-span-4 min-h-[320px] sm:min-h-[340px] p-6 sm:p-7 rounded-[28px] bg-[#121212] border border-[#202020] flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all"
-        >
-          {/* Status Pill Badge */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#122319] border border-[#1b3d29] text-[#22c55e] text-xs font-medium">
-              <span className="h-2 w-2 rounded-full bg-[#22c55e] animate-pulse" />
-              <span>Available for work</span>
-            </div>
-          </div>
-
-          {/* Main Title & Subtitle with Typewriter */}
-          <div className="mt-auto pt-6">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-[1.15]">
-              Hi, I&apos;m {profileData.shortName || profileData.name}
-            </h1>
-            <div className="text-sm sm:text-base font-semibold mt-2 min-h-[26px] flex items-center">
-              <TypewriterRole />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* CARD 2: CENTER PORTRAIT CARD (col-span-3) */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-          className="lg:col-span-3 h-[320px] sm:h-[340px] rounded-[28px] bg-[#121212] border border-[#202020] overflow-hidden relative group hover:border-[#2f2f2f] transition-all"
-        >
-          <div className="w-full h-full relative overflow-hidden bg-[#0c0c0c]">
-            <img
-              src={profileData.avatarUrl}
-              alt={profileData.name}
-              className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-            />
-          </div>
-        </motion.div>
-
-        {/* CARD 3: 5+ PROJECTS CARD (col-span-2) - Visible in this first screen frame */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.08 }}
-          className="lg:col-span-2 h-[320px] sm:h-[340px] rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex flex-col justify-between items-center text-center relative overflow-hidden group hover:border-[#ff1018]/40 transition-all"
-        >
-          {/* Subtle Ambient Red Glow */}
-          <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#ff1018]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#ff1018]/20 transition-all" />
-
-          {/* Top Icon Badge */}
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#280c0f] border border-[#48141a] text-[#ff2a38] group-hover:scale-110 transition-transform duration-300">
-            <Briefcase size={20} />
-          </div>
-
-          {/* Stat in Middle */}
-          <div className="my-auto py-2">
-            <div className="text-5xl sm:text-6xl font-black text-white tracking-tight group-hover:text-[#ff1018] transition-colors">
-              5+
-            </div>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-1.5 block">
-              PROJECTS
-            </span>
-          </div>
-
-          {/* Bottom Action Link */}
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#ff1018] hover:text-white transition-colors group-hover:translate-x-0.5 duration-200"
-          >
-            <span>Browse All</span>
-            <ArrowRight size={12} />
-          </Link>
-        </motion.div>
-
-        {/* CARD 4: RIGHT COLUMN (col-span-3) - Ask my AI + 1+ Experience */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 h-auto lg:h-[340px]"
-        >
-          <div className="flex-1 min-h-[155px]">
-            <AskAICard />
-          </div>
-
-          <div className="flex-1 min-h-[155px] rounded-[28px] bg-[#121212] border border-[#202020] p-5 flex flex-col items-center justify-center text-center group hover:border-[#2f2f2f] transition-all">
-            <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-              1+
-            </span>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-1">
-              YEARS EXPERIENCE
-            </span>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* =========================================================
-          SECTION 2: MAIN 2-COLUMN BENTO GRID (Screenshot 1)
+          MAIN 2-COLUMN BENTO GRID (Matching Screenshot Layout)
           ========================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 mb-4 sm:mb-5">
         
         {/* ==================== LEFT COLUMN (6 cols) ==================== */}
         <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5">
           
-          {/* TOP ROW: LOCATION + CONNECT (2 sub-cards side by side) */}
+          {/* CARD 1: HERO INTRO CARD (Hi, I'm Ismail) */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="h-[340px] sm:h-[370px] p-6 sm:p-8 rounded-[28px] bg-[#121212] border border-[#202020] flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all"
+          >
+            {/* Status Pill Badge */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#122319] border border-[#1b3d29] text-[#22c55e] text-xs font-medium">
+                <span className="h-2 w-2 rounded-full bg-[#22c55e] animate-pulse" />
+                <span>Available for work</span>
+              </div>
+            </div>
+
+            {/* Main Title & Subtitle with Typewriter */}
+            <div className="mt-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.1]">
+                Hi, I&apos;m {profileData.shortName || profileData.name}
+              </h1>
+              <div className="text-sm sm:text-base font-semibold mt-2 min-h-[26px] flex items-center">
+                <TypewriterRole />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CARD 2: LOCATION + CONNECT (2 sub-cards side by side) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-            {/* Card: Location */}
+            {/* Sub-Card: Location */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex items-center gap-3.5 group hover:border-[#2f2f2f] transition-all"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex items-center gap-3.5 group hover:border-[#2f2f2f] transition-all min-h-[145px] sm:h-[155px]"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#280c0f] border border-[#48141a] text-[#ff2a38] shrink-0 group-hover:scale-105 transition-transform duration-300">
                 <MapPin size={19} />
@@ -232,12 +154,12 @@ export default function BentoHero() {
               </div>
             </motion.div>
 
-            {/* Card: Connect */}
+            {/* Sub-Card: Connect */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex flex-col justify-between group hover:border-[#2f2f2f] transition-all"
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex flex-col justify-between group hover:border-[#2f2f2f] transition-all min-h-[145px] sm:h-[155px]"
             >
               <div className="flex items-center gap-2 text-white font-bold text-sm mb-3">
                 <Share2 size={15} />
@@ -287,12 +209,12 @@ export default function BentoHero() {
             </motion.div>
           </div>
 
-          {/* MIDDLE CARD: SERVICES */}
+          {/* CARD 3: SERVICES */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.25 }}
-            className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 sm:p-7 relative group hover:border-[#2f2f2f] transition-all"
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 sm:p-7 relative group hover:border-[#2f2f2f] transition-all min-h-[175px] sm:h-[185px] flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-neutral-400 border border-[#2a2a2a] bg-[#181818] uppercase">
@@ -307,7 +229,7 @@ export default function BentoHero() {
               </Link>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-5">
+            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-4">
               End-to-End <span className="text-[#ff1018] italic">Development</span>
             </h3>
 
@@ -324,12 +246,12 @@ export default function BentoHero() {
             </div>
           </motion.div>
 
-          {/* BOTTOM CARD: ABOUT ME */}
+          {/* CARD 4: ABOUT ME */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 sm:p-8 flex flex-col justify-between group hover:border-[#2f2f2f] transition-all flex-1"
+            transition={{ duration: 0.4, delay: 0.25 }}
+            className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 sm:p-8 flex flex-col justify-between group hover:border-[#2f2f2f] transition-all flex-1 min-h-[320px] sm:min-h-[340px]"
           >
             <div>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
@@ -358,31 +280,85 @@ export default function BentoHero() {
         {/* ==================== RIGHT COLUMN (6 cols) ==================== */}
         <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5">
           
-          {/* TOP CARD: MOVING TECH LOGOS RING (Height matches Connect card, only logos) */}
+          {/* ROW 1: PORTRAIT PHOTO + (ASK AI & EXPERIENCE STACK) */}
+          <div className="h-[340px] sm:h-[370px] grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            {/* Sub-Card 1: Portrait Photo */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.05 }}
+              className="h-full rounded-[28px] bg-[#121212] border border-[#202020] overflow-hidden relative group hover:border-[#2f2f2f] transition-all"
+            >
+              <div className="w-full h-full relative overflow-hidden bg-[#0c0c0c]">
+                <img
+                  src={profileData.avatarUrl}
+                  alt={profileData.name}
+                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                />
+              </div>
+            </motion.div>
+
+            {/* Sub-Card 2: Stack of Ask AI & Experience */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-full flex flex-col gap-4 sm:gap-5"
+            >
+              <div className="flex-1 min-h-[155px]">
+                <AskAICard />
+              </div>
+
+              <div className="flex-1 min-h-[155px] rounded-[28px] bg-[#121212] border border-[#202020] p-5 flex flex-col items-center justify-center text-center group hover:border-[#2f2f2f] transition-all">
+                <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+                  1+
+                </span>
+                <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-1">
+                  YEARS EXPERIENCE
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* CARD 2: PROJECTS & TOOLS CARD (Matches Location+Connect + Services combined height) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="rounded-[28px] bg-[#121212] border border-[#202020] p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all min-h-[145px] sm:h-[155px]"
+            className="rounded-[28px] bg-[#121212] border border-[#202020] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group hover:border-[#ff1018]/40 transition-all min-h-[340px] sm:h-[360px]"
           >
-            {/* Ambient Red Glow */}
-            <div className="absolute w-32 h-32 bg-[#ff1018]/5 rounded-full blur-2xl pointer-events-none -top-6 -right-6" />
+            {/* Subtle Ambient Red Glow */}
+            <div className="absolute w-40 h-40 bg-[#ff1018]/10 rounded-full blur-3xl pointer-events-none -top-10 -right-10 group-hover:bg-[#ff1018]/15 transition-all" />
 
-            {/* Tag: Tools & Technologies */}
-            <div className="flex items-center justify-between z-10 mb-2">
+            {/* Top Header: Tools & Technologies tag + Projects link */}
+            <div className="flex items-center justify-between z-10">
               <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-neutral-300 border border-[#2a2a2a] bg-[#181818] uppercase">
                 Tools &amp; Technologies
               </span>
               <Link
-                href="/about"
-                className="text-[11px] font-semibold text-[#ff1018] hover:underline"
+                href="/projects"
+                className="text-xs font-semibold text-[#ff1018] hover:underline flex items-center gap-1 group/link"
               >
-                All skills →
+                <span>All Projects</span>
+                <ArrowRight size={13} className="group-hover/link:translate-x-0.5 transition-transform" />
               </Link>
             </div>
 
-            {/* Continuous Moving Ring of Tech Logos (Left to Right, Logos Only) */}
-            <div className="w-full overflow-hidden relative select-none py-1">
+            {/* Middle: 5+ My Projects */}
+            <div className="text-center my-auto py-2 z-10">
+              <div className="text-5xl sm:text-6xl font-black text-white tracking-tight group-hover:text-[#ff1018] transition-colors">
+                5+
+              </div>
+              <h4 className="text-xl sm:text-2xl font-bold text-white mt-1 tracking-tight">
+                My Projects
+              </h4>
+              <p className="text-xs sm:text-sm text-neutral-400 max-w-sm mx-auto mt-2 leading-relaxed">
+                Projects that showcase my ability to turn ideas into scalable, high-quality software.
+              </p>
+            </div>
+
+            {/* Bottom: Continuous Moving Ring of Tech Logos (Left to Right, Logos Only) */}
+            <div className="w-full overflow-hidden relative select-none pt-2 z-10">
               {/* Left & Right gradient fades for ring illusion */}
               <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-16 bg-gradient-to-r from-[#121212] to-transparent z-10" />
               <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-16 bg-gradient-to-l from-[#121212] to-transparent z-10" />
@@ -401,7 +377,7 @@ export default function BentoHero() {
                   <div
                     key={`${tech.name}-${idx}`}
                     title={tech.name}
-                    className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#181818] border border-[#262626] hover:border-[#ff1018]/50 hover:bg-[#202020] transition-colors shrink-0 shadow-sm"
+                    className="flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#181818] border border-[#262626] hover:border-[#ff1018]/50 hover:bg-[#202020] transition-colors shrink-0 shadow-sm"
                   >
                     <tech.Icon className="w-5 h-5 shrink-0" />
                   </div>
@@ -410,12 +386,12 @@ export default function BentoHero() {
             </div>
           </motion.div>
 
-          {/* BOTTOM CARD: HAVE A PROJECT IN MIND? (Contact CTA) */}
+          {/* CARD 3: HAVE A PROJECT IN MIND? (Matches About Me height) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="rounded-[28px] bg-[#121212] border border-[#202020] p-8 sm:p-10 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:border-[#2f2f2f] transition-all flex-1 min-h-[300px]"
+            className="rounded-[28px] bg-[#121212] border border-[#202020] p-8 sm:p-10 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:border-[#2f2f2f] transition-all flex-1 min-h-[320px] sm:min-h-[340px]"
           >
             {/* Ambient Red Glow */}
             <div className="absolute w-44 h-44 bg-[#ff1018]/10 rounded-full blur-3xl pointer-events-none" />
@@ -439,6 +415,7 @@ export default function BentoHero() {
               <Send size={15} />
             </Link>
           </motion.div>
+
         </div>
 
       </div>

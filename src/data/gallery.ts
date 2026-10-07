@@ -112,7 +112,7 @@ export const galleryItems: GalleryItem[] = [
     title: "SignifyEd ISL Engine",
     subtitle: "Multimodal Sign Language Translation",
     description: "Speech-to-text NLP pipeline with MediaPipe keypoint sequence mapping and Three.js 3D avatar animation.",
-    image: "/gallery-placeholder.jpg",
+    image: "/projects/signifyed-workspace.png",
     type: "standard",
   },
   {
@@ -122,7 +122,7 @@ export const galleryItems: GalleryItem[] = [
     title: "LabelBee Studio",
     subtitle: "AI Document & Print Generator",
     description: "Production SaaS platform with automated print layouts, Razorpay payments, and cloud exports.",
-    image: "/gallery-placeholder.jpg",
+    image: "/projects/labelbee-hero.png",
     type: "standard",
   },
   {

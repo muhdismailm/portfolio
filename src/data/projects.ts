@@ -27,10 +27,9 @@ export const projectsData: ProjectItem[] = [
     fullDescription: "SignifyEd is an AI-powered accessibility platform designed to assist hearing-impaired users by converting different forms of digital input into Indian Sign Language representations. The platform processes text, audio, and video inputs and presents the resulting signs through an interactive avatar-based interface. The project combines React, Python Flask, OpenCV, Three.js, and sign-language representation technologies to connect language processing with an accessible visual experience.",
     thumbnail: "/projects/signifyed.png",
     gallery: [
-      "/projects/signifyed.png",
-      "/projects/signifyed.png",
-      "/projects/signifyed.png",
-      "/projects/signifyed.png",
+      "/projects/signifyed-hero.png",
+      "/projects/signifyed-workspace.png",
+      "/projects/signifyed-process.png",
     ],
     techStack: [
       "React.js",
@@ -63,10 +62,9 @@ export const projectsData: ProjectItem[] = [
     fullDescription: "LabelBee is a web-based SaaS product designed to simplify the creation of customized student name slips. Users can upload photos, customize student information, select or generate backgrounds, apply themes, and generate print-ready layouts. The platform also integrates a credit-based usage model with Razorpay payment processing and Firebase-powered backend services.",
     thumbnail: "/projects/labelbee.png",
     gallery: [
-      "/projects/labelbee.png",
-      "/projects/labelbee.png",
-      "/projects/labelbee.png",
-      "/projects/labelbee.png",
+      "/projects/labelbee-hero.png",
+      "/projects/labelbee-workflow.png",
+      "/projects/labelbee-pricing.png",
     ],
     techStack: [
       "React.js",
@@ -131,12 +129,12 @@ export const projectsData: ProjectItem[] = [
     category: "Mobile",
     description: "A mobile attendance management application built for tutors to manage students and record attendance efficiently. It provides class-wise and monthly attendance tracking through a simple mobile-first workflow.",
     fullDescription: "Hazri is an attendance management application designed for tutors who manage multiple groups of students. The application simplifies the daily attendance process by allowing tutors to organize students, record attendance, and review attendance history on a monthly basis. The system is designed around a simple workflow so attendance can be recorded quickly during classes.",
-    thumbnail: "/projects/hazri.png",
+    thumbnail: "/projects/hazri-1.png",
     gallery: [
-      "/projects/hazri.png",
-      "/projects/hazri.png",
-      "/projects/hazri.png",
-      "/projects/hazri.png",
+      "/projects/hazri-1.png",
+      "/projects/hazri-2.png",
+      "/projects/hazri-3.png",
+      "/projects/hazri-4.png",
     ],
     techStack: [
       "Flutter",

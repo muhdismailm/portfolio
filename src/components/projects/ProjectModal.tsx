@@ -94,14 +94,24 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* Gallery / Preview Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          <div
+            className={
+              project.category === "Mobile" || project.id === "hazri"
+                ? "grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
+                : "grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8"
+            }
+          >
             {project.gallery.map((item, idx) => (
               <div
                 key={idx}
-                className="aspect-video rounded-xl bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 border border-white/10 flex items-center justify-center text-3xl shadow-inner overflow-hidden p-2"
+                className={`${
+                  project.category === "Mobile" || project.id === "hazri"
+                    ? "aspect-[9/18]"
+                    : "aspect-video"
+                } rounded-xl bg-slate-950 border border-white/10 flex items-center justify-center text-3xl shadow-inner overflow-hidden`}
               >
                 {item.startsWith("/") || item.includes(".") ? (
-                  <img src={item} alt="" className="w-full h-full object-contain" />
+                  <img src={item} alt="" className="w-full h-full object-contain p-1" />
                 ) : (
                   item
                 )}
