@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -14,147 +15,117 @@ import {
   Globe,
   Layers,
   Terminal,
+  Briefcase,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/ui/Icons";
+import {
+  FlutterLogo,
+  DartLogo,
+  FirebaseLogo,
+  PythonLogo,
+  DjangoLogo,
+  FlaskLogo,
+  RestApiLogo,
+  ReactLogo,
+  JavaScriptLogo,
+  HtmlLogo,
+  CssLogo,
+  VsCodeLogo,
+  PostgreSqlLogo,
+  PostmanLogo,
+  DockerLogo,
+  NodejsLogo,
+  FigmaLogo,
+} from "@/components/ui/TechLogos";
 import { profileData } from "@/data/profile";
 import AskAICard from "./AskAICard";
 
-const techStackLogos = [
-  {
-    name: "Flutter",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <path d="M14.314 0L2.3 12.014l3.7 3.7L21.714 0h-7.4z" fill="#02569B" />
-        <path d="M14.214 10.986L8.4 16.8l5.814 5.814h7.5L14.214 10.986z" fill="#0175C2" />
-        <path d="M8.4 16.8l3.7-3.7 3.7 3.7-3.7 3.7-3.7-3.7z" fill="#29B6F6" />
-      </svg>
-    ),
-  },
-  {
-    name: "Flask",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0 text-white" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9.5 2h5M10 2v5.5L4.2 18.5C3.5 19.8 4.4 21.5 6 21.5h12c1.6 0 2.5-1.7 1.8-3L14 7.5V2" />
-        <path d="M6.5 15.5h11" />
-      </svg>
-    ),
-  },
-  {
-    name: "REST API",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <rect x="1" y="4" width="22" height="16" rx="4" fill="#064E3B" stroke="#10B981" strokeWidth="1.2" />
-        <text x="12" y="15" fill="#34D399" fontSize="7.5" fontWeight="bold" fontFamily="monospace" textAnchor="middle">REST</text>
-      </svg>
-    ),
-  },
-  {
-    name: "Django",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <rect width="24" height="24" rx="4" fill="#092E20" />
-        <path fill="#44B78B" d="M13.2 5.5h2.6v9.2c0 2.6-1.3 3.8-3.7 3.8-1.1 0-2.1-.2-2.7-.6l.6-2.1c.5.3 1.1.5 1.7.5 1.2 0 1.5-.7 1.5-1.9V5.5zm-4.7 5.6v2.1c-.5-.2-1-.3-1.6-.3-1.3 0-2 .7-2 1.9 0 1.2.7 1.9 1.9 1.9.6 0 1.1-.1 1.7-.3v2.2c-.7.3-1.6.4-2.5.4-2.4 0-3.9-1.5-3.9-4.1 0-2.6 1.6-4.2 4-4.2 1 0 1.8.2 2.4.4z" />
-      </svg>
-    ),
-  },
-  {
-    name: "HTML",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <path d="M2.5 1.5h19l-1.7 19.3L12 23.5l-7.8-2.7L2.5 1.5z" fill="#E34F26" />
-        <path d="M12 3.3v18l6.3-2.2 1.4-15.8H12z" fill="#EF652A" />
-        <path d="M12 7.7H7.7l.3 3.5h4V7.7zm0 6.4h-2.1l-.2-1.8H7.9l.4 4.3 3.7 1v-3.5z" fill="#ECECEC" />
-        <path d="M12 7.7v3.5h3.7l-.3 3.8-3.4.9v3.6l6.3-1.7.9-10.1H12z" fill="#FFFFFF" />
-      </svg>
-    ),
-  },
-  {
-    name: "CSS",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <path d="M2.5 1.5h19l-1.7 19.3L12 23.5l-7.8-2.7L2.5 1.5z" fill="#1572B6" />
-        <path d="M12 3.3v18l6.3-2.2 1.4-15.8H12z" fill="#33A9DC" />
-        <path d="M12 7.7H7.7l.3 3.5h4V7.7zm0 6.4h-2.1l-.2-1.8H7.9l.4 4.3 3.7 1v-3.5z" fill="#ECECEC" />
-        <path d="M12 7.7v3.5h3.7l-.3 3.8-3.4.9v3.6l6.3-1.7.9-10.1H12z" fill="#FFFFFF" />
-      </svg>
-    ),
-  },
-  {
-    name: "JavaScript",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <rect width="24" height="24" rx="3" fill="#F7DF1E" />
-        <path d="M7 17.5c.8.6 1.8.9 2.7.9 1.4 0 2.2-.7 2.2-1.8 0-1.1-.7-1.6-2.1-2.2l-.7-.3c-1.8-.8-2.8-1.7-2.8-3.4 0-2 1.5-3.5 3.9-3.5 1.2 0 2.1.3 2.8.8l-.8 1.9c-.6-.4-1.3-.7-2-.7-1.1 0-1.7.6-1.7 1.4 0 .9.6 1.4 1.9 2l.7.3c2.1.9 3.1 1.9 3.1 3.6 0 2.2-1.7 3.7-4.4 3.7-1.4 0-2.7-.4-3.6-1.1l.7-2.1z" fill="#000" />
-        <path d="M18.8 7.3h2.4v9.6c0 2.7-1.5 4.1-4 4.1-1.2 0-2.3-.3-3-.8l.8-1.9c.5.4 1.3.7 2.1.7 1.2 0 1.7-.6 1.7-2.1V7.3z" fill="#000" />
-      </svg>
-    ),
-  },
-  {
-    name: "React",
-    icon: (
-      <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-4 h-4 shrink-0">
-        <circle cx="0" cy="0" r="2.05" fill="#61DAFB" />
-        <g stroke="#61DAFB" strokeWidth="1" fill="none">
-          <ellipse rx="11" ry="4.2" />
-          <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-          <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-        </g>
-      </svg>
-    ),
-  },
-  {
-    name: "VS Code",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" fill="none">
-        <path d="M17.5 1.7L9.2 8.4l-4.5-3.5L2 6.3v11.4l2.7 1.4 4.5-3.5 8.3 6.7 4.5-2.1V3.8l-4.5-2.1z" fill="#0066B8" />
-        <path d="M17.5 1.7L9.2 8.4l-4.5-3.5L2 6.3l2.7 1.4 4.5-3.5 8.3-2.5z" fill="#007ACC" opacity="0.8" />
-        <path d="M17.5 1.7v20.6l4.5-2.1V3.8l-4.5-2.1z" fill="#1F9CF0" />
-        <path d="M9.2 8.4l8.3 3.6-8.3 3.6-4.5-3.5 4.5-3.7z" fill="#0066B8" />
-      </svg>
-    ),
-  },
-  {
-    name: "Python",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
-        <path fill="#3776AB" d="M11.9 1.5c-4.7 0-4.4 2-4.4 2l0 2.1h4.5v.7H5.8S2 5.8 2 10.6c0 4.7 3.3 4.6 3.3 4.6h2v-2.8s-.1-3.3 3.3-3.3h5.7s3.2.1 3.2-3.1c0-3.3-2.8-4.5-7.6-4.5zm-2.5 1.5c.7 0 1.2.5 1.2 1.2 0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2c0-.7.5-1.2 1.2-1.2z" />
-        <path fill="#FFD43B" d="M12.1 22.5c4.7 0 4.4-2 4.4-2l0-2.1H12v-.7h6.2s3.8.5 3.8-4.3c0-4.7-3.3-4.6-3.3-4.6h-2v2.8s.1 3.3-3.3 3.3H7.7s-3.2-.1-3.2 3.1c0 3.3 2.8 4.5 7.6 4.5zm2.5-1.5c-.7 0-1.2-.5-1.2-1.2 0-.7.5-1.2 1.2-1.2s1.2.5 1.2 1.2c0 .7-.5 1.2-1.2 1.2z" />
-      </svg>
-    ),
-  },
+const techLogosList = [
+  { name: "Flutter", Icon: FlutterLogo },
+  { name: "Python", Icon: PythonLogo },
+  { name: "Django", Icon: DjangoLogo },
+  { name: "Flask", Icon: FlaskLogo },
+  { name: "REST API", Icon: RestApiLogo },
+  { name: "React", Icon: ReactLogo },
+  { name: "Node.js", Icon: NodejsLogo },
+  { name: "JavaScript", Icon: JavaScriptLogo },
+  { name: "HTML5", Icon: HtmlLogo },
+  { name: "CSS3", Icon: CssLogo },
+  { name: "VS Code", Icon: VsCodeLogo },
+  { name: "Figma", Icon: FigmaLogo },
+  { name: "Dart", Icon: DartLogo },
+  { name: "Firebase", Icon: FirebaseLogo },
+  { name: "PostgreSQL", Icon: PostgreSqlLogo },
+  { name: "Postman", Icon: PostmanLogo },
+  { name: "Docker", Icon: DockerLogo },
 ];
+
+function TypewriterRole() {
+  const roles = ["Flutter App Developer", "Python Full Stack Developer"];
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = roles[index];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting && text === current) {
+      timer = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && text === "") {
+      setIsDeleting(false);
+      setIndex((prev) => (prev + 1) % roles.length);
+    } else {
+      const speed = isDeleting ? 35 : 75;
+      timer = setTimeout(() => {
+        setText((prev) =>
+          isDeleting ? current.slice(0, prev.length - 1) : current.slice(0, prev.length + 1)
+        );
+      }, speed);
+    }
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, index, roles]);
+
+  return (
+    <span className="inline-flex items-center text-[#ff1018] font-bold">
+      <span>{text}</span>
+      <span className="inline-block w-0.5 h-4 sm:h-5 ml-1 bg-[#ff1018] animate-pulse" />
+    </span>
+  );
+}
 
 export default function BentoHero() {
   return (
     <section className="relative pt-6 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       {/* =========================================================
-          SECTION 1: TOP HERO BENTO ROW (Hero, Portrait, Ask my AI, Experience)
+          SECTION 1: TOP HERO BENTO ROW (Hero, Portrait, 5+ Projects, Ask AI + Exp)
           ========================================================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5 mb-4 sm:mb-5">
         
-        {/* CARD 1: LEFT HERO CARD (col-span-6) */}
+        {/* CARD 1: LEFT HERO CARD (col-span-4) - Compact & with typewriter role */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="lg:col-span-6 min-h-[360px] sm:min-h-[380px] p-8 sm:p-10 rounded-[28px] bg-[#121212] border border-[#202020] flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all"
+          className="lg:col-span-4 min-h-[320px] sm:min-h-[340px] p-6 sm:p-7 rounded-[28px] bg-[#121212] border border-[#202020] flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all"
         >
           {/* Status Pill Badge */}
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#122319] border border-[#1b3d29] text-[#22c55e] text-xs font-medium">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#122319] border border-[#1b3d29] text-[#22c55e] text-xs font-medium">
               <span className="h-2 w-2 rounded-full bg-[#22c55e] animate-pulse" />
               <span>Available for work</span>
             </div>
           </div>
 
-          {/* Main Title & Subtitle */}
-          <div className="mt-auto pt-10">
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+          {/* Main Title & Subtitle with Typewriter */}
+          <div className="mt-auto pt-6">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-[1.15]">
               Hi, I&apos;m {profileData.shortName || profileData.name}
             </h1>
-            <p className="text-base sm:text-lg font-semibold text-[#e5383b] mt-3 tracking-normal">
-              {profileData.role}
-            </p>
+            <div className="text-sm sm:text-base font-semibold mt-2 min-h-[26px] flex items-center">
+              <TypewriterRole />
+            </div>
           </div>
         </motion.div>
 
@@ -163,7 +134,7 @@ export default function BentoHero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="lg:col-span-3 h-[360px] sm:h-[380px] rounded-[28px] bg-[#121212] border border-[#202020] overflow-hidden relative group hover:border-[#2f2f2f] transition-all"
+          className="lg:col-span-3 h-[320px] sm:h-[340px] rounded-[28px] bg-[#121212] border border-[#202020] overflow-hidden relative group hover:border-[#2f2f2f] transition-all"
         >
           <div className="w-full h-full relative overflow-hidden bg-[#0c0c0c]">
             <img
@@ -174,22 +145,57 @@ export default function BentoHero() {
           </div>
         </motion.div>
 
-        {/* CARD 3: RIGHT COLUMN (col-span-3) - Ask my AI + 3+ Experience */}
+        {/* CARD 3: 5+ PROJECTS CARD (col-span-2) - Visible in this first screen frame */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.08 }}
+          className="lg:col-span-2 h-[320px] sm:h-[340px] rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex flex-col justify-between items-center text-center relative overflow-hidden group hover:border-[#ff1018]/40 transition-all"
+        >
+          {/* Subtle Ambient Red Glow */}
+          <div className="absolute -top-10 -right-10 w-24 h-24 bg-[#ff1018]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#ff1018]/20 transition-all" />
+
+          {/* Top Icon Badge */}
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#280c0f] border border-[#48141a] text-[#ff2a38] group-hover:scale-110 transition-transform duration-300">
+            <Briefcase size={20} />
+          </div>
+
+          {/* Stat in Middle */}
+          <div className="my-auto py-2">
+            <div className="text-5xl sm:text-6xl font-black text-white tracking-tight group-hover:text-[#ff1018] transition-colors">
+              5+
+            </div>
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-1.5 block">
+              PROJECTS
+            </span>
+          </div>
+
+          {/* Bottom Action Link */}
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#ff1018] hover:text-white transition-colors group-hover:translate-x-0.5 duration-200"
+          >
+            <span>Browse All</span>
+            <ArrowRight size={12} />
+          </Link>
+        </motion.div>
+
+        {/* CARD 4: RIGHT COLUMN (col-span-3) - Ask my AI + 1+ Experience */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 h-auto lg:h-[380px]"
+          className="lg:col-span-3 flex flex-col gap-4 sm:gap-5 h-auto lg:h-[340px]"
         >
-          <div className="flex-1 min-h-[170px]">
+          <div className="flex-1 min-h-[155px]">
             <AskAICard />
           </div>
 
-          <div className="flex-1 min-h-[170px] rounded-[28px] bg-[#121212] border border-[#202020] p-6 flex flex-col items-center justify-center text-center group hover:border-[#2f2f2f] transition-all">
+          <div className="flex-1 min-h-[155px] rounded-[28px] bg-[#121212] border border-[#202020] p-5 flex flex-col items-center justify-center text-center group hover:border-[#2f2f2f] transition-all">
             <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">
               1+
             </span>
-            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-2">
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-neutral-400 uppercase mt-1">
               YEARS EXPERIENCE
             </span>
           </div>
@@ -352,33 +358,34 @@ export default function BentoHero() {
         {/* ==================== RIGHT COLUMN (6 cols) ==================== */}
         <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5">
           
-          {/* TOP CARD: 20+ MY PROJECTS WITH TECH BADGES */}
+          {/* TOP CARD: MOVING TECH LOGOS RING (Height matches Connect card, only logos) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="rounded-[28px] bg-[#121212] border border-[#202020] p-8 sm:p-10 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:border-[#2f2f2f] transition-all min-h-[340px]"
+            className="rounded-[28px] bg-[#121212] border border-[#202020] p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#2f2f2f] transition-all min-h-[145px] sm:h-[155px]"
           >
-            {/* Big Stat */}
-            <div className="text-6xl sm:text-7xl font-black text-white tracking-tight">
-              5+
+            {/* Ambient Red Glow */}
+            <div className="absolute w-32 h-32 bg-[#ff1018]/5 rounded-full blur-2xl pointer-events-none -top-6 -right-6" />
+
+            {/* Tag: Tools & Technologies */}
+            <div className="flex items-center justify-between z-10 mb-2">
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-neutral-300 border border-[#2a2a2a] bg-[#181818] uppercase">
+                Tools &amp; Technologies
+              </span>
+              <Link
+                href="/about"
+                className="text-[11px] font-semibold text-[#ff1018] hover:underline"
+              >
+                All skills →
+              </Link>
             </div>
 
-            {/* Subtitle */}
-            <h3 className="italic font-bold text-xl sm:text-2xl text-neutral-200 mt-1">
-              My Projects
-            </h3>
-
-            {/* Caption */}
-            <p className="text-xs sm:text-sm text-neutral-400 max-w-md mt-2 leading-relaxed">
-              Projects that showcase my ability to turn ideas into scalable, high-quality software.
-            </p>
-
-            {/* Continuous Moving Ring of Tech Logos (Left to Right) */}
-            <div className="w-full overflow-hidden relative mt-7 py-2 select-none">
+            {/* Continuous Moving Ring of Tech Logos (Left to Right, Logos Only) */}
+            <div className="w-full overflow-hidden relative select-none py-1">
               {/* Left & Right gradient fades for ring illusion */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#121212] to-transparent z-10" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#121212] to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-16 bg-gradient-to-r from-[#121212] to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-16 bg-gradient-to-l from-[#121212] to-transparent z-10" />
 
               <motion.div
                 className="flex items-center gap-3 w-max"
@@ -386,34 +393,20 @@ export default function BentoHero() {
                 transition={{
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: 22,
+                  duration: 25,
                   ease: "linear",
                 }}
               >
-                {[...techStackLogos, ...techStackLogos].map((tech, idx) => (
+                {[...techLogosList, ...techLogosList].map((tech, idx) => (
                   <div
                     key={`${tech.name}-${idx}`}
                     title={tech.name}
-                    className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-2xl bg-[#181818] border border-[#262626] hover:border-[#ff1018]/50 hover:bg-[#202020] transition-colors shrink-0 shadow-sm"
+                    className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#181818] border border-[#262626] hover:border-[#ff1018]/50 hover:bg-[#202020] transition-colors shrink-0 shadow-sm"
                   >
-                    <span className="flex items-center justify-center w-4 h-4 shrink-0">
-                      {tech.icon}
-                    </span>
-                    <span className="text-xs font-semibold text-neutral-200 whitespace-nowrap">
-                      {tech.name}
-                    </span>
+                    <tech.Icon className="w-5 h-5 shrink-0" />
                   </div>
                 ))}
               </motion.div>
-            </div>
-
-            <div className="mt-6">
-              <Link
-                href="/work"
-                className="text-xs font-semibold text-[#ff1018] hover:underline"
-              >
-                Browse All Projects →
-              </Link>
             </div>
           </motion.div>
 

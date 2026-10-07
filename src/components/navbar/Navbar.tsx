@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Briefcase, Wrench, Mail } from "lucide-react";
+import { Home, Briefcase, User, Wrench, Mail } from "lucide-react";
 import { profileData } from "@/data/profile";
 
 const navLinks = [
   { label: "Home", href: "/", icon: Home },
-  { label: "Work", href: "/work", icon: Briefcase },
+  { label: "Projects", href: "/projects", icon: Briefcase },
+  { label: "About", href: "/about", icon: User },
   { label: "Services", href: "/services", icon: Wrench },
   { label: "Contact", href: "/contact", icon: Mail },
 ];
@@ -46,9 +47,12 @@ export default function Navbar() {
             const isActive =
               href === "/"
                 ? pathname === "/"
-                : pathname === href ||
-                  (href === "/work" && pathname === "/projects") ||
-                  pathname?.startsWith(href);
+                : href === "/projects"
+                ? pathname === "/projects" ||
+                  pathname === "/work" ||
+                  pathname?.startsWith("/projects") ||
+                  pathname?.startsWith("/work")
+                : pathname === href || pathname?.startsWith(href);
 
             return (
               <Link
